@@ -54,10 +54,11 @@
         }
 
         /* Responsive Adjustments for Real Mobile Devices */
-        @media (max-width: 500px), (max-height: 900px) {
+        @media (max-width: 500px) {
             body {
                 align-items: flex-start;
                 background: var(--bg-black);
+                overflow-y: auto;
             }
             .app-container {
                 max-width: 100%;
@@ -65,12 +66,30 @@
                 height: -webkit-fill-available;
                 border-radius: 0;
                 border: none;
+                box-shadow: none;
             }
             .notch {
                 display: none;
             }
             .dash-header {
-                padding-top: 20px;
+                padding-top: 25px;
+            }
+            .dome-outer {
+                width: 200px;
+                height: 200px;
+                margin-bottom: 20px;
+            }
+            .kufic-text {
+                font-size: 15px;
+                margin-bottom: 30px;
+            }
+            .flag-list {
+                width: 90%;
+                gap: 15px;
+            }
+            .flag-img {
+                width: 55px;
+                height: 55px;
             }
         }
 
