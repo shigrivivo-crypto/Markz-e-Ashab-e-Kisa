@@ -16,10 +16,10 @@
             --light-gold: #f5d060;
             --dark-gold: #8a6520;
             --bg-black: #050505;
-            --bg-light: #f8f9fa;
+            --premium-black: #0a0a0a;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --gold-shadow: 0 0 20px rgba(212, 160, 23, 0.3);
             --accent-green: #00897b;
-            --premium-black: #111111;
-            --gold-gradient: linear-gradient(135deg, #d4a017 0%, #8a6520 100%);
         }
 
         * {
@@ -30,13 +30,13 @@
         }
 
         body {
-            background: #1a1a1a;
+            background: #111;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             font-family: 'Poppins', 'Amiri', serif;
-            color: #333;
+            color: #fff;
             overflow: hidden;
         }
 
@@ -44,12 +44,12 @@
             width: 100%;
             max-width: 414px;
             height: 896px;
-            background: #fff;
+            background: var(--bg-black);
             position: relative;
             overflow: hidden;
             border-radius: 45px;
-            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.5);
-            border: 8px solid #333;
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.9);
+            border: 4px solid #222;
         }
 
         .notch {
@@ -58,10 +58,10 @@
             left: 50%;
             transform: translateX(-50%);
             width: 160px;
-            height: 30px;
-            background: #333;
-            border-bottom-left-radius: 20px;
-            border-bottom-right-radius: 20px;
+            height: 28px;
+            background: #222;
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 18px;
             z-index: 500;
         }
 
@@ -71,43 +71,36 @@
             display: none;
             flex-direction: column;
             z-index: 100;
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .screen.active {
             display: flex;
         }
 
-        /* --- 1. WELCOME SCREEN --- */
+        /* --- 1. PREMIUM WELCOME SCREEN --- */
         #welcome-screen {
             background: radial-gradient(circle at center, #1a1500 0%, #000 100%);
             padding: 40px 20px;
             align-items: center;
             justify-content: center;
             text-align: center;
-            color: #fff;
         }
 
-        .dome-container {
-            position: relative;
-            width: 240px;
-            height: 240px;
-            margin-bottom: 30px;
-        }
-
-        .dome-frame {
-            width: 100%;
-            height: 100%;
-            padding: 6px;
+        .dome-outer {
+            width: 260px;
+            height: 260px;
+            padding: 8px;
             border-radius: 50%;
-            background: var(--gold-gradient);
+            background: linear-gradient(45deg, var(--dark-gold), var(--light-gold), var(--dark-gold));
             box-shadow: 0 0 50px rgba(212, 160, 23, 0.4);
-            animation: pulseGlow 4s infinite alternate;
+            margin-bottom: 40px;
+            animation: smoothPulse 6s infinite ease-in-out;
         }
 
-        @keyframes pulseGlow {
-            0% { transform: scale(1); box-shadow: 0 0 30px rgba(212, 160, 23, 0.3); }
-            100% { transform: scale(1.02); box-shadow: 0 0 60px rgba(212, 160, 23, 0.6); }
+        @keyframes smoothPulse {
+            0%, 100% { transform: scale(1); filter: brightness(1); }
+            50% { transform: scale(1.03); filter: brightness(1.2); }
         }
 
         .hero-gif {
@@ -115,59 +108,60 @@
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #000;
-            /* Smooth GIF loop effect */
-            mask-image: radial-gradient(circle, black 60%, transparent 100%);
-            -webkit-mask-image: radial-gradient(circle, black 60%, transparent 100%);
+            border: 4px solid #000;
+            /* Masking to soften edges */
+            mask-image: radial-gradient(circle, black 80%, transparent 100%);
+            -webkit-mask-image: radial-gradient(circle, black 80%, transparent 100%);
         }
 
         .kufic-text {
             font-family: 'Noto Kufi Arabic', sans-serif;
-            font-size: 16px; /* Slightly smaller as requested */
+            font-size: 17px;
             color: var(--gold);
-            margin-bottom: 40px;
-            white-space: nowrap; /* Single line */
-            text-shadow: 0 0 15px rgba(212, 160, 23, 0.4);
+            margin-bottom: 60px;
+            white-space: nowrap;
+            text-shadow: 0 0 20px rgba(212, 160, 23, 0.5);
             letter-spacing: 0.5px;
+            animation: fadeIn 2s ease;
         }
 
         .flag-list {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            width: 85%;
-            animation: fadeInUp 1s ease;
+            gap: 25px;
+            width: 80%;
+            animation: fadeInUp 1.2s ease-out;
         }
 
         .flag-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: 0.4s;
         }
 
-        .flag-item:hover { transform: translateY(-5px); }
+        .flag-item:hover { transform: translateY(-10px) scale(1.1); }
 
         .flag-img {
-            width: 60px;
-            height: 60px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid var(--gold);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6), 0 0 10px rgba(212,160,23,0.2);
         }
 
         .flag-item span {
             font-size: 13px;
-            color: #ddd;
+            color: rgba(255,255,255,0.7);
             font-family: 'Noto Nastaliq Urdu', serif;
         }
 
-        /* --- 2. DASHBOARD SCREEN --- */
+        /* --- 2. PREMIUM DASHBOARD SCREEN --- */
         #dashboard {
-            background: var(--bg-light);
+            background: #000;
         }
 
         .dash-header {
@@ -175,138 +169,182 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #fff;
+            background: #000;
+            z-index: 10;
         }
 
-        .prayer-info {
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .prayer-info span { color: #888; font-size: 11px; display: block; }
-
-        .header-icons { display: flex; gap: 15px; font-size: 22px; color: #444; }
-
-        .hero-banner-full {
-            width: 100%;
-            height: 220px;
-            overflow: hidden;
-            background: #fff;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        }
-
-        .hero-banner-full img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Full width left to right */
-        }
-
-        .ai-assistant-bar {
-            margin: 15px 20px;
-            background: #fff;
-            border-radius: 15px;
-            padding: 12px 18px;
+        .back-home-btn {
+            background: rgba(212, 160, 23, 0.1);
+            border: 1px solid var(--glass-border);
+            color: var(--gold);
+            padding: 8px 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 13px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            border: 1px solid #eee;
+            gap: 8px;
+            transition: 0.3s;
+            font-family: 'Noto Nastaliq Urdu', serif;
         }
 
-        .ai-title { display: flex; align-items: center; gap: 10px; color: var(--accent-green); font-weight: 600; font-size: 14px; }
-        .ai-status { background: #e0f2f1; color: var(--accent-green); font-size: 11px; padding: 4px 12px; border-radius: 20px; }
+        .back-home-btn:hover {
+            background: var(--gold);
+            color: #000;
+        }
 
-        .app-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            padding: 0 20px;
+        .header-icons { display: flex; gap: 18px; font-size: 20px; color: var(--gold); }
+
+        .banner-header {
+            width: 100%;
+            height: 200px;
+            position: relative;
             margin-bottom: 25px;
         }
 
-        .premium-card {
-            background: #fff;
-            border-radius: 20px;
-            padding: 20px;
+        .banner-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-bottom: 2px solid var(--dark-gold);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            padding: 0 20px;
+            margin-bottom: 30px;
+        }
+
+        .link-card-premium {
+            background: linear-gradient(145deg, #151515, #080808);
+            border: 2px solid rgba(212, 160, 23, 0.1);
+            border-radius: 25px;
+            padding: 15px;
+            text-decoration: none;
             display: flex;
             flex-direction: column;
+            align-items: center;
             gap: 15px;
-            text-decoration: none;
-            color: #333;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            border: 1px solid #f0f0f0;
-            transition: all 0.3s;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
         }
 
-        .premium-card:hover {
-            transform: translateY(-5px);
+        .link-card-premium::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 25px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--gold), transparent, var(--dark-gold));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.3;
+            transition: 0.4s;
+        }
+
+        .link-card-premium:hover {
+            transform: translateY(-10px) scale(1.02);
             border-color: var(--gold);
-            box-shadow: 0 10px 25px rgba(212, 160, 23, 0.1);
         }
 
-        .card-top { display: flex; justify-content: space-between; align-items: center; }
-        .card-name { font-weight: 700; font-size: 15px; font-family: 'Poppins', sans-serif; }
-        .card-icon-img { width: 45px; height: 45px; object-fit: contain; }
+        .link-card-premium:hover::before {
+            opacity: 1;
+        }
 
-        .wide-feature {
+        .card-img-frame {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid rgba(212, 160, 23, 0.2);
+            box-shadow: 0 0 15px rgba(212, 160, 23, 0.1);
+        }
+
+        .card-img-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+
+        .link-card-premium:hover .card-img-frame img {
+            transform: scale(1.1);
+        }
+
+        .card-label-premium {
+            color: var(--gold);
+            font-size: 15px;
+            font-weight: 700;
+            font-family: 'Noto Nastaliq Urdu', serif;
+            text-align: center;
+        }
+
+        .wide-link {
             grid-column: span 2;
             flex-direction: row;
-            align-items: center;
             justify-content: space-between;
+            padding: 15px 25px;
         }
 
-        .scrollable-section {
-            padding: 0 20px 100px;
+        .wide-link .card-img-frame {
+            width: 60px;
+            height: 60px;
         }
 
-        .section-title-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
+        .highlights-sec {
+            padding: 0 20px 110px;
         }
 
-        .section-title-row h3 { font-size: 17px; font-weight: 700; }
-        .btn-more { font-size: 12px; color: #888; text-decoration: none; }
+        .sec-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .sec-head h3 { font-size: 16px; color: var(--gold); font-family: 'Amiri', serif; }
+        .see-all-btn { font-size: 11px; color: #666; text-decoration: none; }
 
-        .slider-box {
+        .highlight-img {
             width: 100%;
-            height: 160px;
+            height: 150px;
             border-radius: 20px;
             overflow: hidden;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
-        .slider-box img { width: 100%; height: 100%; object-fit: cover; }
+        .highlight-img img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
 
-        .bottom-nav-premium {
+        .bottom-nav-glass {
             position: absolute;
             bottom: 0; left: 0; right: 0;
             height: 85px;
-            background: #fff;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(25px);
             display: flex;
             justify-content: space-around;
             align-items: center;
-            border-top: 1px solid #eee;
+            border-top: 1px solid rgba(212, 160, 23, 0.1);
             padding-bottom: 15px;
             z-index: 400;
         }
 
-        .nav-link {
+        .nav-item-premium {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 5px;
-            color: #bbb;
+            gap: 6px;
+            color: #555;
             text-decoration: none;
-            font-size: 11px;
-            font-weight: 500;
+            font-size: 10px;
+            font-weight: 600;
         }
 
-        .nav-link.active { color: var(--accent-green); }
-        .nav-link i { font-size: 26px; }
+        .nav-item-premium.active { color: var(--gold); }
+        .nav-item-premium i { font-size: 24px; }
 
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 
@@ -316,10 +354,8 @@
 
         <!-- 1. WELCOME SCREEN -->
         <div id="welcome-screen" class="screen active">
-            <div class="dome-container">
-                <div class="dome-frame">
-                    <img src="https://res.cloudinary.com/dluuenj8g/image/upload/v1779792165/Untitled_design_e3k0wj.gif" class="hero-gif">
-                </div>
+            <div class="dome-outer">
+                <img src="https://res.cloudinary.com/dluuenj8g/image/upload/v1779792165/Untitled_design_e3k0wj.gif" class="hero-gif">
             </div>
             
             <div class="kufic-text">السلام علیک یا اباعبداللہ الحسینؑ</div>
@@ -343,86 +379,80 @@
         <!-- 2. DASHBOARD SCREEN -->
         <div id="dashboard" class="screen">
             <div class="dash-header">
-                <div class="prayer-info">
-                    Dhuhr prayer 17:35
-                    <span>-20:03:45</span>
+                <div class="back-home-btn" onclick="goBack()">
+                    <i class="ti ti-arrow-right"></i>
+                    <span>واپس ہوم</span>
                 </div>
                 <div class="header-icons">
+                    <i class="ti ti-bell"></i>
                     <i class="ti ti-user-circle"></i>
                     <i class="ti ti-settings"></i>
                 </div>
             </div>
 
-            <div class="hero-banner-full">
-                <img src="https://res.cloudinary.com/dluuenj8g/image/upload/v1779797084/%D9%85%D8%B1%D9%83%D8%B2_%D8%A3%D8%B5%D8%AD%D8%A7%D8%A8_%D8%A7%D9%84%DA%A9%D8%B3%D8%A7%D8%A1_33%D8%91_rry5vt.png" alt="Markaz Ashab al Kisa">
+            <div class="banner-header">
+                <img src="https://res.cloudinary.com/dluuenj8g/image/upload/v1779803658/%D9%85%D8%B1%D9%83%D8%B2_%D8%A3%D8%B5%D8%AD%D8%A7%D8%A8_%D8%A7%D9%84%DA%A9%D8%B3%D8%A7%D8%A1_%D8%91_sjkss8.gif" alt="Markaz Header">
             </div>
 
-            <div class="ai-assistant-bar">
-                <div class="ai-title">
-                    <i class="ti ti-sparkles"></i>
-                    <span>AI Q&A <span style="color:#999; font-weight:400; margin-left:5px;">Your Islamic assistant</span></span>
-                </div>
-                <div class="ai-status">Coming soon</div>
-            </div>
-
-            <div class="app-grid">
-                <a href="https://imamhussain.org/urdu/live" target="_blank" class="premium-card">
-                    <div class="card-top">
-                        <span class="card-name">Live Ziyarat</span>
-                        <img src="https://cdn-icons-png.flaticon.com/512/2615/2615077.png" class="card-icon-img">
+            <div class="dashboard-grid">
+                <a href="https://imamhussain.org/urdu/live" target="_blank" class="link-card-premium">
+                    <div class="card-img-frame">
+                        <img src="https://res.cloudinary.com/dluuenj8g/image/upload/v1779801263/d225c8d5-bc45-4a57-ba82-44b70140d853.png">
                     </div>
+                    <span class="card-label-premium">لائیو زیارت</span>
                 </a>
-                <a href="https://imamhussain.org/urdu/awrad" target="_blank" class="premium-card">
-                    <div class="card-top">
-                        <span class="card-name">Dua & Azkar</span>
-                        <img src="https://cdn-icons-png.flaticon.com/512/2910/2910791.png" class="card-icon-img">
+                <a href="https://imamhussain.org/urdu/awrad" target="_blank" class="link-card-premium">
+                    <div class="card-img-frame">
+                        <img src="https://res.cloudinary.com/dluuenj8g/image/upload/v1779801227/bb75671d-eccc-4e9f-91e8-740011d7adbb.png">
                     </div>
+                    <span class="card-label-premium">دعا و ذکر</span>
                 </a>
-                <a href="https://app.imamhussain.org/tours/?lang=ur" target="_blank" class="premium-card">
-                    <div class="card-top">
-                        <span class="card-name">Virtual Tour</span>
-                        <img src="https://cdn-icons-png.flaticon.com/512/3251/3251145.png" class="card-icon-img">
+                <a href="https://app.imamhussain.org/tours/?lang=ur" target="_blank" class="link-card-premium">
+                    <div class="card-img-frame">
+                        <img src="https://res.cloudinary.com/dluuenj8g/image/upload/v1779801418/8a00bdea-743f-4119-927d-0412c3fbc104.png">
                     </div>
+                    <span class="card-label-premium">ورچوئل زیارت</span>
                 </a>
-                <a href="https://imamhussain.org/urdu/message" target="_blank" class="premium-card">
-                    <div class="card-top">
-                        <span class="card-name">Niabat</span>
-                        <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" class="card-icon-img">
+                <a href="https://imamhussain.org/urdu/message" target="_blank" class="link-card-premium">
+                    <div class="card-img-frame">
+                        <img src="https://res.cloudinary.com/dluuenj8g/image/upload/v1779801596/34172e9f-3e91-4958-a865-a1592bd856bd.png">
                     </div>
+                    <span class="card-label-premium">زیارت نیابتی</span>
                 </a>
-                <a href="https://imamhussain.org/urdu/live" target="_blank" class="premium-card wide-feature">
-                    <div style="display: flex; align-items: center; gap: 15px;">
-                        <img src="https://cdn-icons-png.flaticon.com/512/2972/2972143.png" class="card-icon-img">
-                        <span class="card-name">Imam Hussain TV</span>
+                
+                <a href="https://imamhussain.org/urdu/live" target="_blank" class="link-card-premium wide-link">
+                    <div style="display: flex; align-items: center; gap: 20px;">
+                        <div class="card-img-frame"><img src="https://cdn-icons-png.flaticon.com/512/2972/2972143.png"></div>
+                        <span class="card-label-premium">Imam Hussain TV</span>
                     </div>
-                    <i class="ti ti-player-play" style="color: var(--gold); font-size: 20px;"></i>
+                    <i class="ti ti-player-play" style="color: var(--gold); font-size: 22px;"></i>
                 </a>
             </div>
 
-            <div class="scrollable-section">
-                <div class="section-title-row">
+            <div class="highlights-sec">
+                <div class="sec-head">
                     <h3>Highlights</h3>
-                    <a href="#" class="btn-more">See all ></a>
+                    <a href="#" class="see-all-btn">See all ></a>
                 </div>
-                <div class="slider-box">
-                    <img src="https://images.unsplash.com/photo-1590076175516-72439167c699?auto=format&fit=crop&q=80&w=500">
+                <div class="highlight-img">
+                    <img src="https://images.unsplash.com/photo-1509114397022-ed747cca3f65?auto=format&fit=crop&q=80&w=500">
                 </div>
             </div>
 
-            <div class="bottom-nav-premium">
-                <a href="#" class="nav-link active">
+            <div class="bottom-nav-glass">
+                <a href="#" class="nav-item-premium active">
                     <i class="ti ti-smart-home"></i>
                     <span>Home</span>
                 </a>
-                <a href="https://imamhussain.org/urdu/live" target="_blank" class="nav-link">
+                <a href="https://imamhussain.org/urdu/live" target="_blank" class="nav-item-premium">
                     <i class="ti ti-video"></i>
                     <span>Video</span>
                 </a>
-                <a href="https://imamhussain.org/urdu/awrad" target="_blank" class="nav-link">
+                <a href="https://imamhussain.org/urdu/awrad" target="_blank" class="nav-item-premium">
                     <i class="ti ti-book-2"></i>
                     <span>Dua</span>
                 </a>
-                <a href="#" class="nav-link">
+                <a href="#" class="nav-item-premium">
                     <i class="ti ti-settings"></i>
                     <span>Setting</span>
                 </a>
@@ -432,14 +462,13 @@
 
     <audio id="salamAudio" src="https://www.alkawthartv.ir/uploads/85/2021/Oct/03/6122557577_1633241042732.mp3"></audio>
 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
         function enterApp(lang) {
             const welcome = document.getElementById('welcome-screen');
             const dashboard = document.getElementById('dashboard');
             
             welcome.style.opacity = '0';
-            welcome.style.transform = 'translateY(-20px) scale(0.95)';
+            welcome.style.transform = 'translateY(-20px) scale(0.98)';
             
             setTimeout(() => {
                 welcome.classList.remove('active');
@@ -447,6 +476,23 @@
                 
                 const audio = document.getElementById('salamAudio');
                 audio.play().catch(e => console.log("Audio failed"));
+            }, 700);
+        }
+
+        function goBack() {
+            const welcome = document.getElementById('welcome-screen');
+            const dashboard = document.getElementById('dashboard');
+            
+            dashboard.style.opacity = '0';
+            dashboard.style.transform = 'translateX(20px)';
+            
+            setTimeout(() => {
+                dashboard.classList.remove('active');
+                welcome.classList.add('active');
+                welcome.style.opacity = '1';
+                welcome.style.transform = 'scale(1)';
+                dashboard.style.opacity = '1';
+                dashboard.style.transform = 'none';
             }, 600);
         }
     </script>
