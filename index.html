@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>مركز أصحاب الكساء</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Noto+Kufi+Arabic:wght@700&family=Noto+Nastaliq+Urdu:wght@400;700&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --gold: #d4a017;
+            --light-gold: #f5d060;
+            --dark-gold: #8a6520;
+            --bg-black: #050505;
+            --premium-black: #0a0a0a;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --gold-shadow: 0 0 20px rgba(212, 160, 23, 0.3);
+            --accent-green: #00897b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: #111;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Poppins', 'Amiri', serif;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 414px;
+            height: 896px;
+            background: var(--bg-black);
+            position: relative;
+            overflow: hidden;
+            border-radius: 45px;
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.9);
+            border: 4px solid #222;
+        }
+
+        .notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 160px;
+            height: 28px;
+            background: #222;
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 18px;
+            z-index: 500;
+        }
+
+        .screen {
+            position: absolute;
+            inset: 0;
+            display: none;
+            flex-direction: column;
+            z-index: 100;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        /* --- 1. PREMIUM WELCOME SCREEN --- */
+        #welcome-screen {
+            background: radial-gradient(circle at center, #1a1500 0%, #000 100%);
+            padding: 40px 20px;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .dome-outer {
+            width: 260px;
+            height: 260px;
+            padding: 8px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--dark-gold), var(--light-gold), var(--dark-gold));
+            box-shadow: 0 0 50px rgba(212, 160, 23, 0.4);
+            margin-bottom: 40px;
+            animation: smoothPulse 6s infinite ease-in-out;
+        }
+
+        @keyframes smoothPulse {
+            0%, 100% { transform: scale(1); filter: brightness(1); }
+            50% { transform: scale(1.03); filter: brightness(1.2); }
+        }
+
+        .hero-gif {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #000;
+            /* Masking to soften edges */
+            mask-image: radial-gradient(circle, black 80%, transparent 100%);
+            -webkit-mask-image: radial-gradient(circle, black 80%, transparent 100%);
+        }
+
+        .kufic-text {
+            font-family: 'Noto Kufi Arabic', sans-serif;
+            font-size: 17px;
+            color: var(--gold);
+            margin-bottom: 60px;
+            white-space: nowrap;
+            text-shadow: 0 0 20px rgba(212, 160, 23, 0.5);
+            letter-spacing: 0.5px;
+            animation: fadeIn 2s ease;
+        }
+
+        .flag-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            width: 80%;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .flag-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: 0.4s;
+        }
+
+        .flag-item:hover { transform: translateY(-10px) scale(1.1); }
+
+        .flag-img {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--gold);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6), 0 0 10px rgba(212,160,23,0.2);
+        }
+
+        .flag-item span {
+            font-size: 13px;
+            color: rgba(255,255,255,0.7);
+            font-family: 'Noto Nastaliq Urdu', serif;
+        }
+
+        /* --- 2. PREMIUM DASHBOARD SCREEN --- */
+        #dashboard {
+            background: #000;
+        }
+
+        .status-bar {
+            padding: 45px 20px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #000;
+            z-index: 10;
+        }
+
+        .prayer-info { font-size: 13px; font-weight: 500; color: #fff; }
+        .prayer-info span { color: var(--gold); font-size: 10px; display: block; }
+
+        .header-icons { display: flex; gap: 18px; font-size: 20px; color: var(--gold); }
+
+        .banner-header {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .banner-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Edge to edge */
+            border-bottom: 1px solid rgba(212, 160, 23, 0.2);
+        }
+
+        .ai-premium-bar {
+            margin: 0 20px 20px;
+            background: linear-gradient(90deg, rgba(212,160,23,0.05), rgba(255,255,255,0.02));
+            border-radius: 20px;
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(212,160,23,0.1);
+        }
+
+        .ai-title { display: flex; align-items: center; gap: 12px; color: var(--light-gold); font-weight: 600; font-size: 14px; }
+        .ai-badge { background: var(--dark-gold); color: #000; font-size: 10px; font-weight: 800; padding: 4px 10px; border-radius: 8px; }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            padding: 0 20px;
+            margin-bottom: 20px;
+        }
+
+        .link-card-premium {
+            background: linear-gradient(145deg, #151515, #080808);
+            border: 1px solid rgba(212, 160, 23, 0.1);
+            border-radius: 22px;
+            padding: 22px 15px;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            transition: 0.4s;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+
+        .link-card-premium:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold);
+            background: linear-gradient(145deg, #1a1a1a, #111);
+        }
+
+        .card-icon-wrap {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-icon-wrap img { width: 100%; height: 100%; object-fit: contain; }
+
+        .card-label-premium {
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .wide-link {
+            grid-column: span 2;
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 18px 25px;
+        }
+
+        .highlights-sec {
+            padding: 0 20px 110px;
+        }
+
+        .sec-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .sec-head h3 { font-size: 16px; color: var(--gold); font-family: 'Amiri', serif; }
+        .see-all-btn { font-size: 11px; color: #666; text-decoration: none; }
+
+        .highlight-img {
+            width: 100%;
+            height: 150px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .highlight-img img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+
+        .bottom-nav-glass {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 85px;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(25px);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid rgba(212, 160, 23, 0.1);
+            padding-bottom: 15px;
+            z-index: 400;
+        }
+
+        .nav-item-premium {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: #555;
+            text-decoration: none;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .nav-item-premium.active { color: var(--gold); }
+        .nav-item-premium i { font-size: 24px; }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <div class="notch"></div>
+
+        <!-- 1. WELCOME SCREEN -->
+        <div id="welcome-screen" class="screen active">
+            <div class="dome-outer">
+                <img src="https://res.cloudinary.com/dluuenj8g/image/upload/v1779792165/Untitled_design_e3k0wj.gif" class="hero-gif">
+            </div>
+            
+            <div class="kufic-text">السلام علیک یا اباعبداللہ الحسینؑ</div>
+            
+            <div class="flag-list">
+                <div class="flag-item" onclick="enterApp('ur')">
+                    <img src="https://res.cloudinary.com/dtqrziupt/image/upload/v1776121608/pak-flag_sj8vdp.webp" class="flag-img">
+                    <span>اردو</span>
+                </div>
+                <div class="flag-item" onclick="enterApp('fa')">
+                    <img src="https://res.cloudinary.com/dtqrziupt/image/upload/v1776121608/iran-flag_jjfv2w.webp" class="flag-img">
+                    <span>فارسی</span>
+                </div>
+                <div class="flag-item" onclick="enterApp('en')">
+                    <img src="https://res.cloudinary.com/dtqrziupt/image/upload/v1776121608/england-flag_clc1jb.webp" class="flag-img">
+                    <span>English</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. DASHBOARD SCREEN -->
+        <div id="dashboard" class="screen">
+            <div class="status-bar">
+                <div class="prayer-info">
+                    Dhuhr prayer 17:35
+                    <span>-20:03:45</span>
+                </div>
+                <div class="header-icons">
+                    <i class="ti ti-bell"></i>
+                    <i class="ti ti-user-circle"></i>
+                    <i class="ti ti-settings"></i>
+                </div>
+            </div>
+
+            <div class="banner-header">
+                <img src="https://res.cloudinary.com/dluuenj8g/image/upload/v1779797084/%D9%85%D8%B1%D9%83%D8%B2_%D8%A3%D8%B5%D8%AD%D8%A7%D8%A8_%D8%A7%D9%84%DA%A9%D8%B3%D8%A7%D8%A1_33%D8%91_rry5vt.png" alt="Markaz Header">
+            </div>
+
+            <div class="ai-premium-bar">
+                <div class="ai-title">
+                    <i class="ti ti-sparkles"></i>
+                    <span>AI Assistant <span style="color:rgba(255,255,255,0.4); font-weight:400; margin-left:8px;">How can I help you?</span></span>
+                </div>
+                <div class="ai-badge">NEW</div>
+            </div>
+
+            <div class="dashboard-grid">
+                <a href="https://imamhussain.org/urdu/live" target="_blank" class="link-card-premium">
+                    <div class="card-icon-wrap"><img src="https://cdn-icons-png.flaticon.com/512/2615/2615077.png"></div>
+                    <span class="card-label-premium">Live Ziyarat</span>
+                </a>
+                <a href="https://imamhussain.org/urdu/awrad" target="_blank" class="link-card-premium">
+                    <div class="card-icon-wrap"><img src="https://cdn-icons-png.flaticon.com/512/2910/2910791.png"></div>
+                    <span class="card-label-premium">Dua & Azkar</span>
+                </a>
+                <a href="https://app.imamhussain.org/tours/?lang=ur" target="_blank" class="link-card-premium">
+                    <div class="card-icon-wrap"><img src="https://cdn-icons-png.flaticon.com/512/3251/3251145.png"></div>
+                    <span class="card-label-premium">Virtual Tour</span>
+                </a>
+                <a href="https://imamhussain.org/urdu/message" target="_blank" class="link-card-premium">
+                    <div class="card-icon-wrap"><img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png"></div>
+                    <span class="card-label-premium">Niabat</span>
+                </a>
+                
+                <a href="https://imamhussain.org/urdu/live" target="_blank" class="link-card-premium wide-link">
+                    <div style="display: flex; align-items: center; gap: 20px;">
+                        <div class="card-icon-wrap" style="width: 40px; height: 40px;"><img src="https://cdn-icons-png.flaticon.com/512/2972/2972143.png"></div>
+                        <span class="card-label-premium">Imam Hussain TV</span>
+                    </div>
+                    <i class="ti ti-player-play" style="color: var(--gold); font-size: 22px;"></i>
+                </a>
+            </div>
+
+            <div class="highlights-sec">
+                <div class="sec-head">
+                    <h3>Highlights</h3>
+                    <a href="#" class="see-all-btn">See all ></a>
+                </div>
+                <div class="highlight-img">
+                    <img src="https://images.unsplash.com/photo-1509114397022-ed747cca3f65?auto=format&fit=crop&q=80&w=500">
+                </div>
+            </div>
+
+            <div class="bottom-nav-glass">
+                <a href="#" class="nav-item-premium active">
+                    <i class="ti ti-smart-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="https://imamhussain.org/urdu/live" target="_blank" class="nav-item-premium">
+                    <i class="ti ti-video"></i>
+                    <span>Video</span>
+                </a>
+                <a href="https://imamhussain.org/urdu/awrad" target="_blank" class="nav-item-premium">
+                    <i class="ti ti-book-2"></i>
+                    <span>Dua</span>
+                </a>
+                <a href="#" class="nav-item-premium">
+                    <i class="ti ti-settings"></i>
+                    <span>Setting</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <audio id="salamAudio" src="https://www.alkawthartv.ir/uploads/85/2021/Oct/03/6122557577_1633241042732.mp3"></audio>
+
+    <script>
+        function enterApp(lang) {
+            const welcome = document.getElementById('welcome-screen');
+            const dashboard = document.getElementById('dashboard');
+            
+            welcome.style.opacity = '0';
+            welcome.style.transform = 'translateY(-20px) scale(0.98)';
+            
+            setTimeout(() => {
+                welcome.classList.remove('active');
+                dashboard.classList.add('active');
+                
+                const audio = document.getElementById('salamAudio');
+                audio.play().catch(e => console.log("Audio failed"));
+            }, 700);
+        }
+    </script>
+</body>
+</html>
